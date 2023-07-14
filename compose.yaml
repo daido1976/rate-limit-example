@@ -1,0 +1,17 @@
+services:
+  redis:
+    image: "redis:latest"
+    container_name: "rate-limit-example-redis"
+    ports:
+      - "6380:6379" # redis のデフォルトポートは 6379 だが他プロジェクトとよく競合するので変更しておく
+    volumes:
+      - "./docker/redis_data:/data"
+  dynamodb:
+    image: "amazon/dynamodb-local:latest"
+    container_name: "rate-limit-example-dynamodb"
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb_data:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
