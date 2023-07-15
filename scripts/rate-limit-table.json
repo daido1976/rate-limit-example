@@ -23,9 +23,5 @@
   "ProvisionedThroughput": {
     "ReadCapacityUnits": 1,
     "WriteCapacityUnits": 1
-  },
-  "TimeToLiveSpecification": {
-    "AttributeName": "expiredAt",
-    "Enabled": true
   }
 }

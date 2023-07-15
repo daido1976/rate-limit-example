@@ -1,0 +1,7 @@
+{
+  "TableName": "rate-limit",
+  "TimeToLiveSpecification": {
+    "AttributeName": "expiredAt",
+    "Enabled": true
+  }
+}
