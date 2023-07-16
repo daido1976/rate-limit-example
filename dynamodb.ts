@@ -4,6 +4,7 @@ import {
   UpdateItemCommand,
 } from "npm:@aws-sdk/client-dynamodb";
 import { fromIni } from "npm:@aws-sdk/credential-provider-ini";
+import { format } from "https://deno.land/std@0.194.0/datetime/format.ts";
 
 const client = new DynamoDBClient({
   region: "us-west-2",
@@ -12,9 +13,7 @@ const client = new DynamoDBClient({
 });
 
 async function isRateLimited(userId: string) {
-  // 今日の日付を取得
-  const date = new Date().toISOString().split("T")[0];
-
+  const date = format(new Date(), "yyyy-MM-dd");
   const command = new UpdateItemCommand({
     TableName: rateLimitTable.TableName,
     Key: {
