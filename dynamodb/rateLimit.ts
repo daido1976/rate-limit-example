@@ -1,4 +1,4 @@
-import rateLimitTable from "./scripts/rate-limit-table.json" assert { type: "json" };
+import rateLimitTable from "./db/rate-limit-table.json" assert { type: "json" };
 import {
   DynamoDBClient,
   UpdateItemCommand,

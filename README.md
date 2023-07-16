@@ -10,5 +10,5 @@ $ aws configure set aws_access_key_id dummy --profile local && aws configure set
 # aws cli で確認する
 $ aws dynamodb list-tables --profile local --endpoint-url http://localhost:8000
 # rate limit 用のテーブルを作成する
-$ ./scripts/create-table.sh
+$ ./dynamodb/scripts/create-table.sh
 ```
