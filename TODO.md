@@ -1,0 +1,3 @@
+- dynamodb の rate limit 実装
+- redis の rate limit 実装
+- cargo workspace 使って server/dynamodb-lib/redis-lib に分ける
