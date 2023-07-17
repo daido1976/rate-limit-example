@@ -34,7 +34,7 @@ async function isRateLimited(userId: string) {
 
   const result = await client.send(command);
 
-  return parseInt(result.Attributes?.count?.N || "0") > 15;
+  return parseInt(result.Attributes?.count?.N || "0") > 5;
 }
 
 async function handleRequest(userId: string) {

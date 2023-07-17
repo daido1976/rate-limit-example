@@ -15,9 +15,9 @@ async function isRateLimited(userId: string): Promise<boolean> {
   m.incr(key);
   m.expire(key, 24 * 60 * 60); // TTL: 24時間
   const responses = await m.exec();
-  const currentCount = responses[0][1];
+  const currentCount = responses[0];
 
-  return currentCount > 100;
+  return currentCount > 5;
 }
 
 async function handleRequest(userId: string): Promise<string> {
