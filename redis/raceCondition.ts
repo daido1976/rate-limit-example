@@ -1,25 +1,25 @@
 import { createClient } from "npm:redis";
 import { delay } from "https://deno.land/std@0.194.0/async/mod.ts";
 
-const client = createClient({
+const redis = createClient({
   url: "redis://localhost:6380",
 });
 
-await client.connect();
+await redis.connect();
 
 async function isRateLimited(userId: string): Promise<boolean> {
   const key = `rate_limit:${userId}`;
-  const currentCount = await client.get(key);
+  const currentCount = await redis.get(key);
 
   if (currentCount === null) {
-    // ここで詰まると毎回set1で上書きされてしまう
+    // ここで詰まると毎回1で上書きされてしまう
     await delay(1000);
-    await client.set(key, 1, { EX: 24 * 60 * 60 }); // set key to expire after 24 hours
+    await redis.set(key, 1, { EX: 24 * 60 * 60 }); // set key to expire after 24 hours
     return false;
   } else if (Number(currentCount) < 5) {
     // ここで詰まるとincrはされるが、リクエストは通ってしまう
     await delay(1000);
-    await client.incr(key);
+    await redis.incr(key);
     return false;
   } else {
     return true;
@@ -39,4 +39,4 @@ async function handleRequest(userId: string): Promise<string> {
 // Example usage
 await handleRequest("user2")
   .then(console.log)
-  .finally(() => client.quit());
+  .finally(() => redis.quit());

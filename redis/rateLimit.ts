@@ -1,17 +1,17 @@
 import { createClient } from "npm:redis";
 import { format } from "https://deno.land/std@0.194.0/datetime/format.ts";
 
-const client = createClient({
+const redis = createClient({
   url: "redis://localhost:6380",
 });
 
-await client.connect();
+await redis.connect();
 
 async function isRateLimited(userId: string): Promise<boolean> {
   const date = format(new Date(), "yyyy-MM-dd");
   const key = `rate_limit:${userId}:${date}`;
 
-  const m = client.multi();
+  const m = redis.multi();
   m.incr(key);
   m.expire(key, 24 * 60 * 60); // TTL: 24時間
   const responses = await m.exec();
@@ -31,4 +31,4 @@ async function handleRequest(userId: string): Promise<string> {
 
 await handleRequest("user1")
   .then(console.log)
-  .finally(() => client.quit());
+  .finally(() => redis.quit());

@@ -6,7 +6,7 @@ import {
 import { fromIni } from "npm:@aws-sdk/credential-provider-ini";
 import { format } from "https://deno.land/std@0.194.0/datetime/format.ts";
 
-const client = new DynamoDBClient({
+const dynamodb = new DynamoDBClient({
   region: "us-west-2",
   credentials: fromIni({ profile: "local" }),
   endpoint: "http://localhost:8000",
@@ -32,7 +32,7 @@ async function isRateLimited(userId: string) {
     ReturnValues: "UPDATED_NEW",
   });
 
-  const result = await client.send(command);
+  const result = await dynamodb.send(command);
 
   return parseInt(result.Attributes?.count?.N || "0") > 5;
 }
