@@ -1,3 +1,5 @@
+# rate-limit-example
+
 ```sh
 $ docker-compose up -d
 
@@ -11,4 +13,7 @@ $ aws configure set aws_access_key_id dummy --profile local && aws configure set
 $ aws dynamodb list-tables --profile local --endpoint-url http://localhost:8000
 # rate limit 用のテーブルを作成する
 $ ./dynamodb/scripts/create-table.sh
+
+# スクリプトを並行実行する
+$ for i in {1..20}; do deno run -A redis/with-race-condition.ts & done
 ```

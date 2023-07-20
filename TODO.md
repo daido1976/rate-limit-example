@@ -1,2 +1,0 @@
-- dynamodb の rate limit 実装
-- redis の rate limit 実装
