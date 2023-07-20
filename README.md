@@ -1,5 +1,9 @@
 # rate-limit-example
 
+Redis や DynamoDB を用いた Rate Limit のサンプル実装。 TypeScript(Deno)で実装しています
+
+Docker Compose を使ってローカルで動かせるようにしています。
+
 ```sh
 $ docker-compose up -d
 
@@ -9,7 +13,7 @@ $ docker-compose exec redis redis-cli
 # dynamodb
 # local 用の configure を作成する（credential はダミーで OK）
 $ aws configure set aws_access_key_id dummy --profile local && aws configure set aws_secret_access_key dummy --profile local && aws configure set region us-west-2 --profile local && aws configure set output json --profile local
-# aws cli で確認する
+# aws cli で疎通確認する
 $ aws dynamodb list-tables --profile local --endpoint-url http://localhost:8000
 # rate limit 用のテーブルを作成する
 $ ./dynamodb/scripts/create-table.sh
